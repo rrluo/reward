@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+ <html lang="zh-CN">
+ <head>
+   <title>Page</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://cdn.staticfile.org/mdui/0.4.3/css/mdui.min.css">
+   <style>
+     html, body {
+       height: 100%;
+       margin: 0;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+     }
+
+     /* 适应不同设备屏幕大小 */
+     #contentForWeChat img {
+       max-width: 100%;
+       height: auto;
+       display: block;
+       margin: 0 auto;
+     }
+
+     #contentForAlipay button {
+       font-size: 18px;
+       padding: 30px 40px; /* 调整垂直内边距 */
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       margin: 0 auto;
+       background-color: #2196F3; /* 改变按钮颜色为蓝色 */
+       color: white !important; /* 按钮文字颜色为白色 */
+       border: none; /* 移除按钮边框 */
+       border-radius: 4px; /* 添加按钮圆角 */
+       cursor: pointer; /* 鼠标悬停样式 */
+       transition: background-color 0.3s ease; /* 添加过渡效果 */
+     }
+
+     #contentForAlipay button:hover {
+       background-color: #0D47A1; /* 悬停时颜色变化 */
+     }
+   </style>
+ </head>
+ <body>
+   <div class="mdui-container">
+     <!-- 根据微信或支付宝访问显示不同内容 -->
+     <div id="contentForWeChat" class="mdui-hidden">
+       <img src="code.png" alt="Image for WeChat">
+     </div>
+     <div id="contentForAlipay" class="mdui-hidden">
+       <button id="alipayButton" class="mdui-btn mdui-btn-raised mdui-color-blue">点此赞赏</button>
+     </div>
+   </div>
+
+   <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+   <script src="https://cdn.staticfile.org/mdui/0.4.3/js/mdui.min.js"></script>
+   <script>
+     $(document).ready(function() {
+       // 检测微信或支付宝访问
+       if (/MicroMessenger/i.test(navigator.userAgent)) {
+         $('#contentForWeChat').removeClass('mdui-hidden');
+       } else if (/Alipay/i.test(navigator.userAgent)) {
+         $('#contentForAlipay').removeClass('mdui-hidden');
+         $('#alipayButton').on('click', function() {
+           window.location.href = 'https://ds.alipay.com/?from=pc&appId=20000116&actionType=toAccount&memo=%E7%A4%BC%E7%89%A9&goBack=NO&userId=2088642710022970';
+         });
+       } else {
+         // 如果是其他访问方式，跳转到指定页面
+         window.location.href = 'https://juhpay.bjmymf.com/wx/tips.html?msg=请使用%20微信/支付宝%20扫码';
+       }
+     });
+   </script>
+ </body>
+ </html>
